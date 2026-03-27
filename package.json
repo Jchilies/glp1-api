@@ -1,0 +1,19 @@
+{
+  "name": "glp1-x-api",
+  "version": "0.1.0",
+  "description": "GLP-1 questions API – surfaces trending GLP-1 questions from X",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --verbose"
+  },
+  "keywords": ["glp1", "api", "express"],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  }
+}
