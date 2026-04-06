@@ -66,7 +66,6 @@ app.get('/glp1/x-top-questions-paid', (req, res) => {
     time_window_days: days,
     language,
     questions: [
-    questions: [
   {
 
       question: "What are people saying about GLP-1 side effects this week?",
