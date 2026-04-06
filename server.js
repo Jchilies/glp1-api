@@ -1,5 +1,5 @@
 const express = require('express');
-const { x402Express } = require('x402-express');
+const x402Express = require('x402-express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -28,6 +28,38 @@ app.get('/glp1/x-top-questions', paywall, (req, res) => {
     language,
     questions: [
       // ...your existing questions array...
+    ]
+  };
+
+  res.json(response);
+});
+app.get('/glp1/x-top-questions-paid', paywall, (req, res) => {
+  const days = parseInt(req.query.days || '7', 10);
+  const language = req.query.language || 'en';
+
+  const response = {
+    generated_at: new Date().toISOString(),
+    time_window_days: days,
+    language,
+    questions: [
+      {
+        question: 'What are the long-term side effects of GLP-1 medications?',
+        count: 132,
+        keywords: ['side effects', 'long term'],
+        example_tweet_ids: ['1234567890001']
+      },
+      {
+        question: 'How long do I need to stay on Ozempic or Wegovy for weight loss?',
+        count: 98,
+        keywords: ['duration', 'Ozempic', 'Wegovy'],
+        example_tweet_ids: ['2234567890001']
+      },
+      {
+        question: 'Can I stop GLP-1s without regaining the weight?',
+        count: 85,
+        keywords: ['stopping', 'regain', 'maintenance'],
+        example_tweet_ids: ['3234567890001']
+      }
     ]
   };
 
