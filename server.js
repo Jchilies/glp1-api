@@ -1,6 +1,4 @@
 const express = require('express');
-const { x402Express } = require('x402-express');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -13,13 +11,8 @@ app.get('/', (req, res) => {
 
 // Placeholder endpoint
 // GLP1 questions from X (mocked for now)
-const paywall = x402Express({
-  price: '0.10', // 10 cents
-  assetCode: 'USD',
-  network: 'base-sepolia', // safer test network
-  description: 'Access GLP1 top questions'
-});
-app.get('/glp1/x-top-questions', paywall, (req, res) => {
+app.get('/glp1/x-top-questions', (req, res) => {
+
   const days = parseInt(req.query.days || '7', 10);
   const language = req.query.language || 'en';
 
