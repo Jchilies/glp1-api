@@ -27,7 +27,7 @@ app.get('/glp1/x-top-questions', (req, res) => {
 
   res.json(response);
 });
-app.get('/glp1/x-top-questions-paid', paywall, (req, res) => {
+app.get('/glp1/x-top-questions-paid', (req, res) => {
   const days = parseInt(req.query.days || '7', 10);
   const language = req.query.language || 'en';
 
