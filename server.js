@@ -98,7 +98,6 @@ app.get('/glp1/x-top-questions-paid', (req, res) => {
       example_tweet_ids: ["1009", "1010"]
     }
 
-      }
     ]
   };
 
