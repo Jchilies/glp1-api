@@ -106,11 +106,13 @@ app.get('/glp1/x-top-questions-paid', (req, res) => {
 
  
 
-// Start server only when run directly (not when imported by tests)
+// Start server only when run directly
 if (require.main === module) {
   app.listen(PORT, () => {
-    console.log(`GLP1 API listening on http://localhost:${PORT}`);
+    console.log(`GLP1 API listening on port ${PORT}`);
   });
 }
+
+module.exports = app;
 
 module.exports = app;
