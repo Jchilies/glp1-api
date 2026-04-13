@@ -14,8 +14,13 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@x402/core": "^2.10.0",
+    "@x402/evm": "^2.10.0",
+    "@x402/express": "^2.10.0",
+    "@x402/fetch": "^2.9.0",
+    "dotenv": "^17.4.1",
     "express": "^4.21.0",
-    "x402-express": "^1.1.0"
+    "viem": "^2.47.10"
   },
   "devDependencies": {
     "jest": "^29.7.0",
