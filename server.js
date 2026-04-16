@@ -15,11 +15,11 @@ if (!payTo) {
 }
 
 const facilitatorClient = new HTTPFacilitatorClient({
-  url: "https://x402.org/facilitator",
+  url: "https://api.cdp.coinbase.com/platform/v2/x402"
 });
 
-const resourceServer = new x402ResourceServer(facilitatorClient).register(
-  "eip155:84532",
+const x402Server = new x402ResourceServer(facilitatorClient).register(
+  "eip155:8453",
   new ExactEvmScheme()
 );
 
@@ -33,48 +33,35 @@ function buildQuestions(days, language) {
         question: "What are people saying about GLP-1 side effects this week?",
         count: 18,
         keywords: ["glp1", "side effects", "nausea"],
-        example_tweet_ids: ["1001", "1002"],
+        example_tweet_ids: ["1001", "1002"]
       },
       {
         question: "Are people talking more about Ozempic or Wegovy right now?",
         count: 14,
         keywords: ["ozempic", "wegovy", "comparison"],
-        example_tweet_ids: ["1003", "1004"],
+        example_tweet_ids: ["1003", "1004"]
       },
       {
         question: "What are the most discussed reasons people stop taking GLP-1 drugs?",
         count: 11,
         keywords: ["glp1", "stopping", "cost"],
-        example_tweet_ids: ["1005", "1006"],
+        example_tweet_ids: ["1005", "1006"]
       },
       {
         question: "Which GLP-1 side effects are mentioned most often in recent posts?",
         count: 16,
         keywords: ["glp1", "side effects", "fatigue"],
-        example_tweet_ids: ["1007", "1008"],
+        example_tweet_ids: ["1007", "1008"]
       },
       {
         question: "Are users discussing weight regain after stopping GLP-1 medications?",
         count: 9,
         keywords: ["weight regain", "glp1", "stopping"],
-        example_tweet_ids: ["1009", "1010"],
-      },
-    ],
+        example_tweet_ids: ["1009", "1010"]
+      }
+    ]
   };
 }
-
-app.get("/", (req, res) => {
-  res.json({
-    status: "ok",
-    message: "GLP1 x402 API running",
-  });
-});
-
-app.get("/glp1/x-top-questions", (req, res) => {
-  const days = parseInt(req.query.days || "7", 10);
-  const language = req.query.language || "en";
-  res.json(buildQuestions(days, language));
-});
 
 app.use(
   paymentMiddleware(
@@ -84,24 +71,32 @@ app.use(
           {
             scheme: "exact",
             price: "$0.01",
-            network: "eip155:84532",
-            payTo: payTo,
-          },
+            network: "eip155:8453",
+            payTo: payTo
+          }
         ],
         description: "Premium GLP-1 questions API",
-        mimeType: "application/json",
-      },
+        mimeType: "application/json"
+      }
     },
-    resourceServer
+    x402Server
   )
 );
 
-app.get("/glp1/x-top-questions-paid", (req, res) => {
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "GLP1 x402 API running"
+  });
+});
+
+app.get("/glp1/x-top-questions", (req, res) => {
   const days = parseInt(req.query.days || "7", 10);
   const language = req.query.language || "en";
+
   res.json(buildQuestions(days, language));
 });
 
-app.listen(PORT, () => {
-  console.log(`GLP1 API listening on port ${PORT}`);
-});
+app.get("/glp1/x-top-questions-paid", (req, res) => {
+  const days = parseInt(req.query.days || "7", 10);
+  const language = req.query.languag
