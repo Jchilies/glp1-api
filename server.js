@@ -99,4 +99,15 @@ app.get("/glp1/x-top-questions", (req, res) => {
 
 app.get("/glp1/x-top-questions-paid", (req, res) => {
   const days = parseInt(req.query.days || "7", 10);
-  const language = req.query.languag
+  const language = req.query.language || "en";
+
+  res.json(buildQuestions(days, language));
+});
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`GLP1 API listening on port ${PORT}`);
+  });
+}
+
+module.exports = app;
