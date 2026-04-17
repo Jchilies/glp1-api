@@ -2,6 +2,7 @@ const express = require("express");
 const { paymentMiddleware, x402ResourceServer } = require("@x402/express");
 const { ExactEvmScheme } = require("@x402/evm/exact/server");
 const { HTTPFacilitatorClient } = require("@x402/core/server");
+const { facilitator } = require("@coinbase/x402");
 require("dotenv").config();
 
 const app = express();
@@ -14,9 +15,7 @@ if (!payTo) {
   throw new Error("Missing PAY_TO in environment variables");
 }
 
-const facilitatorClient = new HTTPFacilitatorClient({
-  url: "https://api.cdp.coinbase.com/platform/v2/x402"
-});
+const facilitatorClient = new HTTPFacilitatorClient(facilitator);
 
 const x402Server = new x402ResourceServer(facilitatorClient).register(
   "eip155:8453",
@@ -86,7 +85,7 @@ app.use(
 app.get("/", (req, res) => {
   res.json({
     status: "ok",
-    message: "GLP1 x402 API running"
+    message: "GLP1 API running"
   });
 });
 
